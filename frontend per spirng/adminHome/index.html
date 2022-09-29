@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Rossi/Admin</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
@@ -20,35 +20,50 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container px-4 px-lg-5">
       <h2 class="navbar-brand" >Rossi Shop</h2>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span
           class="navbar-toggler-icon"></span></button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#demo">
+        <div class="d-flex">
+          <div class="container">
+            <button class="btn-add-prodotto btn btn-secondary" type="button"data-bs-toggle="modal" data-bs-target="#myModal" >Aggiungi Prodotto</button>
+          </div>
+          <div>
+            <button class="btn-categorie btn btn-secondary" type="button"data-bs-toggle="modal" data-bs-target="#myModal" >Categorie</button>  
+          </div>  
+        </div>
+        
+
+        
+       
+      
+      
+        <!--<button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#demo">
           Dettaglio
-        </button>
+        </button> -->
         
         <div id="tastiNavbar">
         </div>
       </div>
     </div>
   </nav>
+  <div id="renderFiltro"></div>
     <!-- Offcanvas Sidebar -->
-<div class="offcanvas offcanvas-start" id="demo">
+<!--<div class="offcanvas offcanvas-start" id="demo">
     <div class="offcanvas-header">
       <h1 class="offcanvas-title">Gestionale</h1>
-     <!-- <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"></button> -->
+     <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"></button> 
     </div>
     <div class="offcanvas-body">
-      <button id='magazzino'>Filtro</button>
+      <button class="btn-filtro" type="button"data-bs-toggle="modal" data-bs-target="#myModal">Filtro</button>
       <br><br>
       <button class="btn-add-prodotto" type="button"data-bs-toggle="modal" data-bs-target="#myModal" >Aggiungi Prodotto</button>
       
     </div>
-  </div>
+  </div> -->
 
   <!-- Button to Open the Modal -->
 <!--<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
@@ -86,6 +101,7 @@
  <!-- <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#demo"> 
     Dettaglio
   </button> -->
+  
 
 
 <div id="body" class="d-flex justify-content-center container my-5 text-center ">  

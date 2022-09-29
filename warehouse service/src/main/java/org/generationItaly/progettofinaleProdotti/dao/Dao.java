@@ -149,7 +149,7 @@ public class Dao extends BasicDao implements IDao{
 
 	@Override
 	public boolean modCategoria(Categoria categoria) {
-		return isExecute("UPDATE CATEGORIA set nome = ? WHERE id = ?", categoria.getNome(), categoria.getId());
+		return isExecute("UPDATE CATEGORIE set nome = ? WHERE id = ?", categoria.getNome(), categoria.getId());
 	}
 
 	@Override

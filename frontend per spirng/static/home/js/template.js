@@ -83,7 +83,7 @@ const dettaglioProdotto = `<div class="container mt-5 mb-5">
                 <div class="col-md-6">
                     <div class="images p-3">
                         <div class="text-center p-4"> <img id="main-image" src="[IMGPATH1]" width="250" /> </div>
-                        <div class="thumbnail text-center"> <img id="img-1" onclick="change_image(this)" src="[IMGPATH1]" width="70"> <img id="img-1" onclick="change_image(this)" src="[IMGPATH2]" width="70"> <img id="img-2" onclick="change_image(this)" src="[IMGPATH3]" width="70"> </div>
+                        <div class="thumbnail text-center"> <img id="img-1" onclick="change_image(this)" src="[IMGPATH1]" width="70"> <img id="img-2" onclick="change_image(this)" src="[IMGPATH2]" width="70"> <img id="img-3" onclick="change_image(this)" src="[IMGPATH3]" width="70"> </div>
                     </div>
                 </div>
                 <div class="col-md-6">

@@ -18,7 +18,7 @@ $(document).ready(function () {
   })
 
   //ascolto evento click aggiungi prodotto 
-  $('#demo').on('click', '.btn-add-prodotto', function() {
+  $('.navbar').on('click', '.btn-add-prodotto', function() {
     renderAggiungiProdotto();
   })
 
@@ -55,7 +55,6 @@ $(document).ready(function () {
 
    //ascolto evento per modificare modello
  $('.modal').on('click','.btn-esegui-modifica-modello',function() {
-     console.log('button')
      modificaModello($(this).val(),$(this).attr('idProdotto'));
    })
 
@@ -67,7 +66,7 @@ $(document).ready(function () {
    
    $('.modal').on('click', '.btn-aggiungi-nuovi-modelli', function () {
 
-    console.log($(this).val())
+    $('.w3-modal-content').width('450px')
     renderAggiungiModelloModal2($(this).val());
     
   })
@@ -97,6 +96,46 @@ $(document).ready(function () {
     aggiungiModello2(true,$(this).val())
     
   })
+
+  //ascolto evento per ordinare per prezzo
+  $('#renderFiltro').on('click', '#filtroPrezzo', function (ev) {
+    if (ev.offsetY < 0) {
+    renderMagazzinoFiltrato(ordinaProdotti($(this).val()));
+    } else {}
+  })
+
+  $('#renderFiltro').on('click', '#filtroCategoria', function (ev) {
+    if (ev.offsetY < 0) {
+    renderMagazzinoFiltrato(filtroCategoria($(this).val()));
+  
+    } else {}
+  })
+  $('#renderFiltro').on('click','#annullaFiltri',function() {
+    renderMagazzino();
+  })
+  $('.navbar').on('click','.btn-categorie',function(){
+    renderCategorie();
+  })
+
+  $('.modal').on('click','.btn-elimina-categoria',function() {
+    deleteCategoria($(this).val());
+  })
+  $('.modal').on('click','.btn-modifica-categoria',function() {
+    renderModificaCategorie($(this).val(),$(this).attr('nomeCategoria'));
+    
+  })
+  $('#id01').on('click','.btn-esegui-modifica-categoria',function(){
+    eseguiModificaCategoria($(this).val())
+  })
+
+  $('.modal').on('click','.btn-add-categoria',function() {
+    renderAggiungiCategorie();
+  })
+
+  $('#id01').on('click','.btn-esegui-add-categoria',function(){
+    eseguiAddCategoria()
+  })
+
 });
 
 

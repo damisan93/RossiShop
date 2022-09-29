@@ -1,7 +1,10 @@
+var prodotti;
 function renderMagazzino() {
   $.get('http://localhost:8080/prodotti', function (res) {
     $('#body').html('');
     var righeNuove = "";
+    prodotti=res;
+    renderBarraRicerca(res);
     for (let i = 0; i < res.length; i++) {
       righeNuove += `<tr id='tabellaMod' clickable>
                   <td>${res[i].nome}</td>
@@ -9,7 +12,7 @@ function renderMagazzino() {
                   <td>${res[i].prezzo}</td>
                   <td>${res[i].descrizione}</td>      
                   <td>
-                    <div class="d-flex flex-row">
+                    <div class="d-flex justify-content-center">
                       <div class="mr-3">
                         <button class='btn btn-primary btn-mostra-modelli' data-bs-toggle="modal" data-bs-target="#myModal" value='${res[i].id}'>Modelli</button>
                       </div>
@@ -62,9 +65,7 @@ function modificaProdotto() {
   $.ajax({
     type: 'PUT',
     url: 'http://localhost:8080/prodotti/',
-    crossDomain: true,
     headers: {
-      'Access-Control-Allow-Origin': 'http://localhost:3000',
       "Content-Type": "application/json"
     },
     data: prod,
@@ -94,7 +95,6 @@ function aggiungiProdotto() {
     },
     data: prod,
     success: function (res) {
-      console.log(res)
       renderAggiungiModello(res);
     }
   })
@@ -160,8 +160,6 @@ function aggiungiModello(continua) {
 }
 
 function aggiungiModello2(continua,idProdotto) {
-  
-  console.log(idProdotto)
   const modello = {
     "colore": $('#colore').val(),
     "taglia": $('#taglia').val(),
@@ -220,40 +218,6 @@ function categorie(id) {
   return menu.replace('[ROW]', categorie);
 }
 
-function filtraCategorie() {
-  var t = $('#categoria option:selected').text()
-
-
-  $.get('http://localhost:8080/prodotti', function (res) {
-
-
-    for (let i = 0; i < res.length; i++) {
-
-      if (res[i].categoria.nome === t.trim()) {
-
-
-        righe += `<tr>
-                      <td>${res[i].nome}</td>
-                      <td>${res[i].categoria.nome}</td>
-                      <td>${res[i].prezzo}</td>
-                      <td>${res[i].descrizione}</td>
-                      <td>
-                          <button style='width :87.46px;' class='btn btn-danger' data-id='${res[i].id}'> Elimina</button>
-                          <button class='btn-modifica' data-id='${res[i].id}'>Modifica</button>
-                      </td>
-                    </tr>`
-      }
-    }
-
-
-
-    $('#body').html(tabella.replace('[ROW]', righe));
-  })
-
-
-
-
-}
 
 function renderModelliProdotto(idProdotto) {
   $.get('http://localhost:8080/modelli/prodotto/'+idProdotto, function (res) {
@@ -282,7 +246,6 @@ function renderModelliProdotto(idProdotto) {
   })
 }
 function deleteModello(id,idProdotto) {
-  console.log(idProdotto)
    $.ajax({
      type: 'DELETE',
      url: `http://localhost:8080/modelli/${id}`,
@@ -319,7 +282,7 @@ function renderModificaModaleModello(id,idProdotto) {
 
 
 function modificaModello (id,idProdotto) {
-  console.log('mod')
+  
   $('#header-modal').html("MODIFICA MODELLO")
   const modModello=JSON.stringify({
     "id": id,
@@ -334,7 +297,7 @@ function modificaModello (id,idProdotto) {
      
   })
   
-  console.log(modModello)
+  
 
   $.ajax({
     type: 'PUT',
@@ -355,7 +318,6 @@ function renderAggiungiModelloModal(idProdotto) {
   $('#header-modal').html("AGGIUNGI MODELLO")
   $('#body-modal').html(templateAggiungiModello.replace('[ID]', idProdotto));
   $('.footer-modal').html(bottoniAggiungiModello.replace('[ID]', idProdotto).replace('[ID]', idProdotto));
-  console.log('sono arrivato fin qui')
 }
 
 function renderAggiungiModelloModal2(idProdotto) {
@@ -363,7 +325,7 @@ function renderAggiungiModelloModal2(idProdotto) {
   $('#header-modal2').html("AGGIUNGI MODELLO")
   $('#body-modal2').html(templateAggiungiModello.replace('[ID]', idProdotto));
   $('#footer-modal2').html(bottoniAggiungiModello2.replace('[ID]', idProdotto).replace('[ID]', idProdotto).replace('[ID]', idProdotto));
-  console.log('sono arrivato fin qui')
+  
 }
 
 
@@ -400,5 +362,176 @@ function deleteImmagine(link) {
   })
 }
 
+function renderBarraRicerca(res) {
+  
+  var categoria="";
+  $.ajax({
+    url: 'http://localhost:8080/categorie',
+    async : false,
+    success: function (res) {
+      for(let c of res) {
+        categoria+=`<option value='${c.id}'>${c.nome}</option>`
+      }
 
+      
+    }
+  })
+
+  $('#renderFiltro').html( barraRicerca.replace('[OPZIONI]', categoria));
+}
+
+function renderMagazzinoFiltrato(res) {
+   
+    $('#body').html('');
+    var righeNuove = "";
+    
+   
+    for (let i = 0; i < res.length; i++) {
+      righeNuove += `<tr id='tabellaMod' clickable>
+                  <td>${res[i].nome}</td>
+                  <td>${res[i].categoria.nome}</td>
+                  <td>${res[i].prezzo}</td>
+                  <td>${res[i].descrizione}</td>      
+                  <td>
+                    <div class="d-flex flex-row">
+                      <div class="mr-3">
+                        <button class='btn btn-primary btn-mostra-modelli' data-bs-toggle="modal" data-bs-target="#myModal" value='${res[i].id}'>Modelli</button>
+                      </div>
+                      <div class="mx-2">
+                        <button class='btn btn-secondary btn-modifica' data-bs-toggle="modal" data-bs-target="#myModal" value='${res[i].id}'>Modifica</button>
+                      </div>
+                      <div class="">
+                        <button style='width :87.46px;' class='btn btn-danger btn-elimina' value='${res[i].id}'>Elimina</button>
+                      </div>
+                    </div>
+                    
+                  </td>
+                </tr>`
+    }
+
+    $('#body').html(tabella.replace('[ROW]', righeNuove));
+  
+
+}
+function ordinaProdotti(start) {
+  var prodottiOrdinati = [...prodotti];
+
+  if (start == 'min') {
+    return prodottiOrdinati.sort((a, b) => a.prezzo - b.prezzo);
+  } else {
+    return prodottiOrdinati.sort((a, b) => b.prezzo - a.prezzo);
+  }
+
+}
+
+function filtroCategoria (idCategoria){
+  var prodottiOrdinati = [...prodotti];
+  return prodottiOrdinati.filter(e => e.categoria.id== idCategoria)
+
+
+}
+function renderCategorie() {
+  $.ajax({
+    url: 'http://localhost:8080/categorie',
+    async : false,
+    success: function (res) {
+      var righeNuove="";
+      for(let c of res) {
+        righeNuove += `<tr id='tabellaCategoria' >
+        <td>${c.nome}</td>
+            
+        <td>
+          <div class="d-flex flex-row">
+            <div class="mx-2">
+              <button class='btn btn-secondary btn-modifica-categoria' data-bs-dismiss="modal" nomeCategoria='${c.nome}' value='${c.id}'>Modifica</button>
+            </div>
+            <div class="">
+              <button style='width :87.46px;' class='btn btn-danger btn-elimina-categoria'  value='${c.id}'>Elimina</button>
+            </div>
+          </div>
+          
+        </td>
+      </tr>`
+      }
+      $('#header-modal').html("CATEGORIE")
+  $('#body-modal').html(tabellaCategoria.replace('[CATEGORIE]',righeNuove))
+  $('.footer-modal').html(bottoniGestioneModelli);
+
+      
+
+      
+    }
+  })
+
+}
+
+function deleteCategoria(id) {
+  $.ajax({
+    type: 'DELETE',
+    url: `http://localhost:8080/categorie/${id}`,
+
+   
+    success : function(res) {
+    renderCategorie();
+
+
+
+    }
+
+  })
+}
+function renderModificaCategorie(id,nome) {
+  $('.w3-modal-content').width('240px')
+  document.getElementById('id01').style.display='block'
+
+  $('#header-modal2').html("MODIFICA CATEGORIE")
+  $('#body-modal2').html(modificaCategoria.replace('[NOME]',nome))
+  $('#footer-modal2').html(bottoniModificaCategoria.replace('[NOME]',nome).replace('[ID]',id));
+
+}
+
+function eseguiModificaCategoria(id) {
+  const json={id:id,nome : $('#nomeCategoria').val()}
+  $.ajax({
+    type: 'PUT',
+    url: 'http://localhost:8080/categorie/',
+    headers: {
+      "Content-Type": "application/json"
+    },
+    data: JSON.stringify(json),
+    success: function (res) {
+      renderMagazzino()
+      renderCategorie()
+      document.getElementById('id01').style.display='none'
+    }
+  })
+}
+
+function renderAggiungiCategorie() {
+  $('.w3-modal-content').width('240px')
+  document.getElementById('id01').style.display='block'
+  
+  $('#header-modal2').html("AGGIUNGI CATEGORIE")
+  $('#body-modal2').html(aggiungiCategoria)
+  $('#footer-modal2').html(bottoniAggiungiCategoria);
+
+}
+
+function eseguiAddCategoria() {
+  const json={nome : $('#nomeCategoria').val()}
+
+  $.ajax({
+    type: 'POST',
+    url: 'http://localhost:8080/categorie/',
+    headers: {
+      "Content-Type": "application/json"
+    },
+    data: JSON.stringify(json),
+    success: function (res) {
+      renderMagazzino()
+      renderCategorie()
+      document.getElementById('id01').style.display='none'
+    }
+  })
+}
 

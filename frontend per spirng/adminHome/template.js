@@ -156,3 +156,63 @@ const tabellaModelli = ` <table class=" table table-striped table-bordered">
 
                            </tbody>
                            </table> `
+                           
+const barraRicerca = `<div class="container my-5 border text-center">
+                           <div class="row">
+                           
+                           <div class="col mt-2">
+                               <span>Prezzo</span>
+                           </div>
+                           <div class="col mt-2">
+                               <p>Categorie</p>
+                           </div>
+                           <div class="col mt-2">
+                               <p>Opzioni</p>
+                           </div>
+                           </div>
+                           <div class="row mb-2">
+                           
+                           <div class="col d-flex justify-content-center">
+                           <select class="form-select" id="filtroPrezzo" style="width: auto;">
+                               <option value="max">Dal più Caro</option>
+                               <option value="min">Dal più Economico</option>
+                           </select>
+                           </div>
+                           <div class="col d-flex justify-content-center">
+
+                           <select id="filtroCategoria" class="form-select" style="width: auto;">[OPZIONI]</select> 
+                           </div>
+                           <div class="col d-flex justify-content-center">
+                               <button type="button" id="annullaFiltri" class="btn btn-light">Annulla Filtri</button> 
+                           </div>
+                           </div>
+                           </div>`
+
+const tabellaCategoria=`<div>
+                            <button class="btn btn-primary btn-add-categoria" data-bs-dismiss="modal">Aggiungi Categoria</button>
+                        </div>
+                        <table>
+                            <thead>
+                                <tr> 
+                                    <th>Nome</th>
+                                    <th>Opzioni</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                             [CATEGORIE]
+                            </tbody>
+                        </table>`
+const modificaCategoria=`<p>NOME</p>
+
+                        <input type='text' id='nomeCategoria' value='[NOME]'>`
+
+const bottoniModificaCategoria= `<button type="button" class="mr-2 btn btn-primary btn-esegui-modifica-categoria" data-bs-toggle="modal" data-bs-target="#myModal" value='[ID]'>Modifica</button>
+                                 <button type="button" class="btn btn-danger btn-annulla-modifica-categoria" onclick="document.getElementById('id01').style.display='none'">Annulla</button>`                        
+
+const aggiungiCategoria=`<p>NOME</p>
+
+                        <input type='text' id='nomeCategoria' placeholder="Inresirsci il nome...">`
+                        
+const bottoniAggiungiCategoria= `<button type="button" class="mr-2 btn btn-primary btn-esegui-add-categoria" data-bs-toggle="modal" data-bs-target="#myModal">Aggiungi</button>
+                        <button type="button" class="btn btn-danger" btn-annulla-modifica-categoria onclick="document.getElementById('id01').style.display='none'">Annulla</button>`   
+                     

@@ -172,13 +172,6 @@ function getProdotto(id) {
     tagliePresenti = new Map();
     for (let i = 0; i < res.modelli.length; i++) {
       if (tagliePresenti.get(res.modelli[i].taglia) == undefined) {
-        if (coloriPresenti.get(res.modelli[i].colore) == undefined) {
-          coloriPresenti.set(res.modelli[i].colore, {
-            link1: PROVIDER_IMMAGINI + res.modelli[i].link1,
-            link2: PROVIDER_IMMAGINI + res.modelli[i].link2,
-            link3: PROVIDER_IMMAGINI + res.modelli[i].link3
-          })
-        }
         tagliePresenti.set(res.modelli[i].taglia, optionTaglia.replace('[TAGLIA]', res.modelli[i].colore))
         taglie += bottoniTaglie
           .replace("[TAGLIA]", res.modelli[i].taglia)
@@ -186,6 +179,15 @@ function getProdotto(id) {
       } else {
         tagliePresenti.set(res.modelli[i].taglia, tagliePresenti.get(res.modelli[i].taglia) + optionTaglia.replace('[TAGLIA]', res.modelli[i].colore))
       }
+
+      if (coloriPresenti.get(res.modelli[i].colore) == undefined) {
+        coloriPresenti.set(res.modelli[i].colore, {
+          link1: PROVIDER_IMMAGINI + res.modelli[i].link1,
+          link2: PROVIDER_IMMAGINI + res.modelli[i].link2,
+          link3: PROVIDER_IMMAGINI + res.modelli[i].link3
+        })
+      }
+      
     }
 
     $("#dettaglio").html(
@@ -236,7 +238,6 @@ function renderProfilo() {
 }
 
 async function modificaProfilo() {
-  console.log();
   if (document.getElementById("attivo").disabled) {
     document.getElementById("attivo").disabled = false;
     document.getElementById("attivoFatt").disabled = false;
@@ -382,7 +383,6 @@ function renderCookieCarrello() {
 
     for (let p of map) {
       var id = p[0];
-      console.log(id)
       idProdottoCarrello.push(id);
 
       $('#tabellaCarrello').append(p[1]);
